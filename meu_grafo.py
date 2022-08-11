@@ -1,6 +1,7 @@
 from tkinter import N
 from bibgrafo.grafo_lista_adjacencia import GrafoListaAdjacencia
 from bibgrafo.grafo_exceptions import *
+from sys import maxsize
 
 
 class MeuGrafo(GrafoListaAdjacencia):
@@ -191,6 +192,9 @@ class MeuGrafo(GrafoListaAdjacencia):
         
     def caminho(self, n):
 
+        if n > len(grafoComBfs.A):
+            return False
+
         verticeParaBfs = ''
 
         for vertices in self.N:
@@ -199,9 +203,6 @@ class MeuGrafo(GrafoListaAdjacencia):
                 break
 
         grafoComBfs = self.dfs(verticeParaBfs)
-
-        if n > len(grafoComBfs.A):
-            return False
 
         listaDeCaminhosPercorridos = []
         caminhosPercorridos = 0
@@ -273,5 +274,75 @@ class MeuGrafo(GrafoListaAdjacencia):
                             novoGrafo.adicionaAresta(a, novaRoot, self.A[a].getV1())
                         if novaRoot == root:
                             return novoGrafo
-    def dijkstra_drone(self, vi, vf, carga:int, carga_max:int, pontos_recarga:list()):
-        pass
+
+    def dijkstraImpressao(self, omega):
+        #RECEBE O FINAL DO CAMINHO
+        percurso = self.N[-1]
+        #ADICIONA ELE
+        listaFinal = [percurso]
+        #PERCORRE OS CAMINHOS DE OMEGA
+        while percurso != "Nulo":
+            #ADICIONA O ANTECESSOR DE PERCURSO
+            listaFinal.append(omega[percurso])
+            #ATUALIZA VALOR DE RECURSO
+            percurso = omega[percurso]
+        listaFinal.pop()
+        return listaFinal
+
+
+
+    def dijkstra_drone(self, vi, vf):
+        # CRIAÇÃO DOS DICIONÁRIOS
+        beta = {x: maxsize if x != vi else 0 for x in self.N}
+        alpha = {x: 0 if x != vi else 1 for x in self.N}
+        omega = {x: "Nulo" if x == vi else "" for x in self.N}
+
+        # VARIÁVEIS QUE CONTROLAM O FLUXO DA FUNÇÃO
+        inicio = vi
+        percurso = vi
+        destino = vf
+
+        # PERCORRER TODOS OS VERTICES ATÉ ELE CHEGAR EM SEU DESTINO
+        while percurso != destino:
+            
+            # LISTA COM OS VÉRTICES ADJACENTES AO PERCURSO
+            verticesAdjacntes = list(self.arestas_sobre_vertice(percurso))
+
+            #PERCORRER A LISTA
+            for x in verticesAdjacntes:
+                # VERIFICAR SE O V1 DAQUELA ARESTA É IGUAL AO PERCURSO, PARA O BETA DO VÉRTICE OPOSTO SER ALTERADO
+                if self.A[x].getV1() == percurso:
+                    #VERIFICA SE O PESO DESSA ARESTA É MENOR QUE O PESO QUE JA ESTÁ NESSA CHAVE NO BETA
+                    if beta[self.A[x].getV2()] > self.A[x].getPeso():
+                        # ATRIBUIÇÃO DO NOVO VALOR DE BETA CASO A CONDIÇÃO ACONTEÇA
+                        beta[self.A[x].getV2()] = self.A[x].getPeso() + beta[self.A[x].getV1()]
+                # MESMO PROCESSO PARA O V2
+                else:
+                    if beta[self.A[x].getV1()] > self.A[x].getPeso():
+                        beta[self.A[x].getV1()] = self.A[x].getPeso() + beta[self.A[x].getV2()]
+            
+            #MARCA O VERTICE ATUAL COMO VISITADO
+            alpha[percurso] = 1
+
+            # VERIFICAR QUAL FOI O MENOR BETA
+            # VALOR INICIAL PARA A VERIFICAÇÃO
+            menorBeta = maxsize
+            #VARIÁVEL QUE GUARDA O VERTICE QUE IRÁ SER ANALISADO DPS
+            novoCaminhoDoPercurso = ""
+            #PERCORRER A LISTA DE VERTICES
+            for y in self.N:
+                # VERIFICA SE O MENOR BETA NÃO É O INICIAL (QUE E SEMPRE 0), SE AQUELE VERTICE JA FOI VISITADO E SE ELE É MENOR QUE O MENOR BETA
+                if beta[y] != inicio and alpha[y] != 1 and beta[y] < menorBeta:
+                    menorBeta = beta[y]
+                    novoCaminhoDoPercurso = y
+
+            #ATUALIZA O ANTECESSOR DO VERTICE A SER ANALISADO NO PROXIMO LAÇO COM O VERTICE DO PERCURSO ATUAL
+            omega[novoCaminhoDoPercurso] = percurso
+            #ATUALIZA O PROXIMO PERCURSO
+            percurso = novoCaminhoDoPercurso
+        
+        # IMPRESSAO DA LISTA COM OS VERTICES QUE INDICAM O MENOR CAMINHO
+        listaFinal = self.dijkstraImpressao(self, omega)
+
+        return listaFinal
+        
