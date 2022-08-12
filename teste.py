@@ -13,7 +13,6 @@ def dijkstra_drone(self, vi, vf):
         omega = {x: "Nulo" if x == vi else "" for x in self.N}
 
         # VARIÁVEIS QUE CONTROLAM O FLUXO DA FUNÇÃO
-        inicio = vi
         percurso = vi
         destino = vf
 
@@ -43,7 +42,7 @@ def dijkstra_drone(self, vi, vf):
             #PERCORRER A LISTA DE VERTICES
             for y in self.N:
                 # VERIFICA SE O MENOR BETA NÃO É O INICIAL (QUE E SEMPRE 0), SE AQUELE VERTICE JA FOI VISITADO E SE ELE É MENOR QUE O MENOR BETA
-                if beta[y] != inicio and alpha[y] != 1 and beta[y] < menorBeta:
+                if alpha[y] != 1 and beta[y] < menorBeta:
                     menorBeta = beta[y]
                     percurso = y
         # IMPRESSAO DA LISTA COM OS VERTICES QUE INDICAM O MENOR CAMINHO
