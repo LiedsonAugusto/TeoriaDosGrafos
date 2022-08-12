@@ -275,22 +275,6 @@ class MeuGrafo(GrafoListaAdjacencia):
                         if novaRoot == root:
                             return novoGrafo
 
-    def dijkstraImpressao(self, omega):
-        #RECEBE O FINAL DO CAMINHO
-        percurso = self.N[-1]
-        #ADICIONA ELE
-        listaFinal = [percurso]
-        #PERCORRE OS CAMINHOS DE OMEGA
-        while percurso != "Nulo":
-            #ADICIONA O ANTECESSOR DE PERCURSO
-            listaFinal.append(omega[percurso])
-            #ATUALIZA VALOR DE RECURSO
-            percurso = omega[percurso]
-        listaFinal.pop()
-        return listaFinal
-
-
-
     def dijkstra_drone(self, vi, vf):
         # CRIAÇÃO DOS DICIONÁRIOS
         beta = {x: maxsize if x != vi else 0 for x in self.N}
@@ -342,7 +326,22 @@ class MeuGrafo(GrafoListaAdjacencia):
             percurso = novoCaminhoDoPercurso
         
         # IMPRESSAO DA LISTA COM OS VERTICES QUE INDICAM O MENOR CAMINHO
-        listaFinal = self.dijkstraImpressao(self, omega)
+        
+        listaFinal = self.dijkstraImpressao(omega)
+        return listaFinal
 
+
+    def dijkstraImpressao(self, omega):
+        #RECEBE O FINAL DO CAMINHO
+        percurso = self.N[-1]
+        #ADICIONA ELE
+        listaFinal = [percurso]
+        #PERCORRE OS CAMINHOS DE OMEGA
+        while percurso != "Nulo":
+            #ADICIONA O ANTECESSOR DE PERCURSO
+            listaFinal.append(omega[percurso])
+            #ATUALIZA VALOR DE RECURSO
+            percurso = omega[percurso]
+        listaFinal.pop()
         return listaFinal
         

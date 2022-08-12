@@ -136,6 +136,42 @@ class TestGrafo(unittest.TestCase):
         self.g_p_dfs_C.adicionaAresta('a8', 'M', 'T')
         self.g_p_dfs_C.adicionaAresta('a9', 'T', 'Z')
 
+        #djikstra
+        self.dijkstra1 = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.dijkstra1.adicionaAresta('a1', 'A', 'B', 1)
+        self.dijkstra1.adicionaAresta('a2', 'A', 'C', 2)
+        self.dijkstra1.adicionaAresta('a3', 'C', 'D', 1)
+        self.dijkstra1.adicionaAresta('a4', 'B', 'D', 4)
+        self.dijkstra1.adicionaAresta('a5', 'D', 'E', 1)
+
+        self.dijkstra2 = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.dijkstra2.adicionaAresta('a1', 'A', 'B', 1)
+        self.dijkstra2.adicionaAresta('a2', 'A', 'C', 2)
+        self.dijkstra2.adicionaAresta('a3', 'C', 'D', 1)
+        self.dijkstra2.adicionaAresta('a4', 'B', 'D', 4)
+        self.dijkstra2.adicionaAresta('a5', 'D', 'E', 1)
+
+        self.dijkstra3 = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.dijkstra3.adicionaAresta('a1', 'A', 'B', 1)
+        self.dijkstra3.adicionaAresta('a2', 'A', 'C', 2)
+        self.dijkstra3.adicionaAresta('a3', 'C', 'D', 1)
+        self.dijkstra3.adicionaAresta('a4', 'B', 'D', 4)
+        self.dijkstra3.adicionaAresta('a5', 'D', 'E', 1)
+
+        self.dijkstra4 = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.dijkstra4.adicionaAresta('a1', 'A', 'B', 1)
+        self.dijkstra4.adicionaAresta('a2', 'A', 'C', 2)
+        self.dijkstra4.adicionaAresta('a3', 'C', 'D', 1)
+        self.dijkstra4.adicionaAresta('a4', 'B', 'D', 4)
+        self.dijkstra4.adicionaAresta('a5', 'D', 'E', 1)
+
+        self.dijkstra5 = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+        self.dijkstra5.adicionaAresta('a1', 'A', 'B', 1)
+        self.dijkstra5.adicionaAresta('a2', 'A', 'C', 2)
+        self.dijkstra5.adicionaAresta('a3', 'C', 'D', 1)
+        self.dijkstra5.adicionaAresta('a4', 'B', 'D', 4)
+        self.dijkstra5.adicionaAresta('a5', 'D', 'E', 1)
+
 
 
 
@@ -355,5 +391,6 @@ class TestGrafo(unittest.TestCase):
         self.assertTrue(self.g_p.dfs("P") == self.g_p_dfs_P)
         self.assertTrue(self.g_p.dfs("M") == self.g_p_dfs_M)
         self.assertTrue(self.g_p.dfs("E") == self.g_p_dfs_E)
-        
 
+    def test_dijkstra(self):
+        self.assertEqual(self.dijkstra1.dijkstra_drone('A', 'E'), ['E', 'D', 'C', 'B', 'A'])
