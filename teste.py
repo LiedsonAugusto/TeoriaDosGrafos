@@ -95,14 +95,19 @@ MeuGrafo2.adicionaAresta('a3', 'A', 'C', 2)
 MeuGrafo2.adicionaAresta('a4', 'C', 'D', 2)
 MeuGrafo2.adicionaAresta('a5', 'D', 'F', 2)
 
-abc = MeuGrafo(['A', 'B', 'C', 'D', 'E'])
+abc = MeuGrafo(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'])
 abc.adicionaAresta('a1', 'A', 'B', 1)
-abc.adicionaAresta('a2', 'A', 'C', 2)
-abc.adicionaAresta('a3', 'C', 'D', 1)
-abc.adicionaAresta('a4', 'B', 'D', 4)
-abc.adicionaAresta('a5', 'D', 'E', 1)
+abc.adicionaAresta('a2', 'A', 'C', 1)
+abc.adicionaAresta('a3', 'A', 'D', 3)
+abc.adicionaAresta('a4', 'A', 'E', 1)
+abc.adicionaAresta('a5', 'E', 'F', 1)
+abc.adicionaAresta('a6', 'E', 'G', 2)
+abc.adicionaAresta('a7', 'D', 'K', 5)
+abc.adicionaAresta('a8', 'B', 'H', 2)
+abc.adicionaAresta('a9', 'C', 'I', 4)
+abc.adicionaAresta('a10', 'C', 'J', 2)
 
-print(dijkstra_drone(MeuGrafo2, 'A', 'F'))
+print(dijkstra_drone(abc, 'A', 'J'))
 
 # string = "0123456789012345678901234567890123456789012345678901234567890123456789"
 # lista = [string[v:v+10] for v in range(len(string)) if v % 10 == 0]
