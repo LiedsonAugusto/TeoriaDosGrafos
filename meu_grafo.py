@@ -275,7 +275,7 @@ class MeuGrafo(GrafoListaAdjacencia):
                         if novaRoot == root:
                             return novoGrafo
 
-    def dijkstra_drone(self, vi, vf):
+    def dijkstra(self, vi, vf):
         beta = {x: maxsize if x != vi else 0 for x in self.N}
         alpha = {x: 0 if x != vi else 1 for x in self.N}
         omega = {x: "Nulo" if x == vi else "" for x in self.N}

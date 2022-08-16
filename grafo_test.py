@@ -396,8 +396,8 @@ class TestGrafo(unittest.TestCase):
         self.assertTrue(self.g_p.dfs("E") == self.g_p_dfs_E)
 
     def test_dijkstra(self):
-        self.assertEqual(self.dijkstra1.dijkstra_drone('A', 'E'), ['E', 'D', 'C', 'A'])
-        self.assertEqual(self.dijkstra2.dijkstra_drone('A', 'F'), ['F', 'D', 'C', 'A'])
-        self.assertEqual(self.dijkstra3.dijkstra_drone('A', 'F'), ['F', 'D', 'B', 'A'])
-        self.assertEqual(self.dijkstra4.dijkstra_drone('A', 'J'), ['J', 'C', 'A'])
-        self.assertEqual(self.dijkstra5.dijkstra_drone('A', 'B'), ['B', 'C', 'A'])
+        self.assertEqual(self.dijkstra1.dijkstra('A', 'E'), ['E', 'D', 'C', 'A'])
+        self.assertEqual(self.dijkstra2.dijkstra('A', 'F'), ['F', 'D', 'C', 'A'])
+        self.assertEqual(self.dijkstra3.dijkstra('A', 'F'), ['F', 'D', 'B', 'A'])
+        self.assertEqual(self.dijkstra4.dijkstra('A', 'J'), ['J', 'C', 'A'])
+        self.assertEqual(self.dijkstra5.dijkstra('A', 'B'), ['B', 'C', 'A'])
